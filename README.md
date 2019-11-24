@@ -1,4 +1,8 @@
-# flutter_training
+# Flutter Training
+It is a Flutter Application created for showing Trending Pages.
+
+# Screenshots:
+
 
 A new Flutter application.
 
