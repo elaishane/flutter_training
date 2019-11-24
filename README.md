@@ -2,8 +2,7 @@
 It is a Flutter Application created for showing Trending Pages.
 
 # Screenshots:
-
-
+![](screenshots/AppScreen.mov)
 A new Flutter application.
 
 ## Getting Started
