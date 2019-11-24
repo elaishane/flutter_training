@@ -2,8 +2,8 @@
 It is a Flutter Application created for showing Trending Pages.
 
 # Screenshots:
-A new Flutter application.
-![Login Screen](screenshots/LoginScreen.gif)
+![Login Screen](screenshots/LoginScreen.gif) 
+![AppScreen](screenshots/AppScreen.gif)
 
 ## Getting Started
 
