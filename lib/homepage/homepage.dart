@@ -1,134 +1,200 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_training/trendingpage/trendingpage.ui.dart';
-import 'package:flutter_training/homepage/homepage.dart';
+import 'package:flutter_practice/addblog.dart';
+import 'package:flutter_practice/detailpage.dart';
+import 'package:flutter_practice/loginpage.dart';
+import 'package:flutter_practice/trendingpage.dart';
+import 'list.dart';
 
-class HomePage extends StatelessWidget {
+class Homepage extends StatefulWidget {
+  @override
+  _HomepageState createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  Future<bool> onwillpop() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.deepOrange,
+          title: Text(
+            "Are you sure ",
+            style:
+            TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          content: Text(
+            "Do you want to logout ?",
+            style:
+            TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                "Yes",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              ),
+            FlatButton(
+              child: Text(
+                "No",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              )
+          ],
+          ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final name = CircleAvatar(
-      radius: 72.0,
-      backgroundColor: Colors.transparent,
-      backgroundImage: AssetImage('assets/images/logo.png'),
-    );
+    return WillPopScope(
+      onWillPop: onwillpop,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.deepOrange,
+          title: Text("Hii, Raj"),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              )
+          ],
+          ),
 
-    final welcomeText = Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: <Widget>[
-          Center(
-            child: Text(
-              'Welcome!!!\nElai Shane',
-              style: TextStyle(
-                fontSize: 45.0,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
+        //drwer
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(color: Colors.deepOrange),
+                accountEmail: Text("raj@gmail.com"),
+                accountName: Text("Raj"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage("image/logo.png"),
+                  ),
+                ),
+              ListTile(
+                trailing: Icon(Icons.home),
+                title: Text("Homepage"),
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Homepage()));
+                },
+                ),
+              ListTile(
+                trailing: Icon(Icons.trending_up),
+                title: Text("Trendingpage"),
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => TrendingPage()));
+                },
+                )
+            ],
             ),
           ),
-        ],
-      ),
-    );
 
-    final bodyText = Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(
-        'Welcome to our Commuity. We are happy to welcome you to our community .It is a community to learn,explore and gain knowledge.\n We at "WiseKreator" work with a vision to bring our members Idea`s into Reality and that is our mission',
-        style: TextStyle(fontSize: 25.0, color: Colors.white),
-      ),
-    );
+//asume it we have 10 blogs.....
 
-    final body = Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(28.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          Colors.blue,
-          Colors.lightBlueAccent,
-        ]),
-      ),
-      child: Column(
-        children: <Widget>[
-          Expanded(child: name),
-          Expanded(child: welcomeText),
-          Expanded(child: bodyText),
-        ],
-      ),
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        bottomOpacity: 0.0,
-        elevation: 0.0,
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.blueAccent),
-              accountEmail: Text(
-                "admin@gmail.com",
-                style: TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-              accountName: Text(
-                "Elai Shane",
-                style: TextStyle(fontFamily: 'Pacifico', fontSize: 25.0),
-              ),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.black,
-                backgroundImage: AssetImage("assets/images/logo.png"),
-              ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: ListView(
+            //listview helps us to make a scrollable widgets....
+            //listview and listview.builder
+            children: <Widget>[for (int i = 0; i < 5; i++) texting(context, i)],
             ),
-            ListTile(
-              trailing: Icon(Icons.home),
-              title: Text(
-                "Home Page",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontFamily: 'Source Sans Pro',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => HomePage()));
-              },
-            ),
-            ListTile(
-              trailing: Icon(Icons.trending_up),
-              title: Text(
-                "Trending Page",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontFamily: 'Source Sans Pro',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => TrendingPage()));
-              },
-            )
-          ],
-        ),
-      ),
+          ),
 
-//      resizeToAvoidBottomPadding: true,
-//      resizeToAvoidBottomInset: true,
-      body: Center(child: body),
-//      primary: true,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: IconButton(
-          icon: Icon(FontAwesomeIcons.signOutAlt),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.deepOrange,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/LoginScreen');
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => ImagePost()));
+            print("You can add your blogs here !!!");
           },
+          ),
         ),
-      ),
-    );
+      );
+  }
+
+  //ending of stateless widget   it only works for UI itself
+
+  Widget texting(BuildContext context, int index) {
+    double deviceHeight = MediaQuery.of(context).size.height / 3;
+    return GestureDetector(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
+        child: Card(
+          elevation: 5.0,
+          child: Container(
+            height: deviceHeight,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  height: deviceHeight / 1.35,
+                  width: MediaQuery.of(context).size.width,
+                  child: FadeInImage(
+                    image: NetworkImage(blogimage[index]),
+                    placeholder: AssetImage("image/logo.png"),
+                    fit: BoxFit.cover,
+                    ),
+                  ),
+                Container(
+                  height: deviceHeight / 4,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        item[index], //title
+                        style: TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                        ),
+                      Divider(
+                        color: Colors.transparent,
+                        height: 3.0,
+                        ),
+                      Text(
+                        blogsubtitle[index], //subtitle
+                        style: TextStyle(fontSize: 16.0),
+                        )
+                    ],
+                    ),
+                  )
+              ],
+              ),
+            ),
+          ),
+        ),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Details(
+              demoImage: blogimage,
+              index: index,
+              subtitle: blogsubtitle,
+              title: item,
+              )));
+      },
+      );
   }
 }

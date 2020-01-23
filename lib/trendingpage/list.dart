@@ -31,3 +31,11 @@ List<String> blogsubtitle = [
   "What Youtubers Earn ??",
   "Robotics Start AI & ML !!"
 ];
+
+List<String> taggs = [
+  "Apple",
+  "Computers",
+  "Corporate",
+  "Flutter",
+  "wiseKreator"
+];
